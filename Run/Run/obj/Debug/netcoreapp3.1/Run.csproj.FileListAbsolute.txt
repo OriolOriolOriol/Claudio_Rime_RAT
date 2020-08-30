@@ -1,0 +1,13 @@
+D:\CrazyPy\Run\Run\bin\Debug\netcoreapp3.1\Run.exe
+D:\CrazyPy\Run\Run\bin\Debug\netcoreapp3.1\Run.deps.json
+D:\CrazyPy\Run\Run\bin\Debug\netcoreapp3.1\Run.runtimeconfig.json
+D:\CrazyPy\Run\Run\bin\Debug\netcoreapp3.1\Run.runtimeconfig.dev.json
+D:\CrazyPy\Run\Run\bin\Debug\netcoreapp3.1\Run.dll
+D:\CrazyPy\Run\Run\bin\Debug\netcoreapp3.1\Run.pdb
+D:\CrazyPy\Run\Run\obj\Debug\netcoreapp3.1\Run.csprojAssemblyReference.cache
+D:\CrazyPy\Run\Run\obj\Debug\netcoreapp3.1\Run.AssemblyInfoInputs.cache
+D:\CrazyPy\Run\Run\obj\Debug\netcoreapp3.1\Run.AssemblyInfo.cs
+D:\CrazyPy\Run\Run\obj\Debug\netcoreapp3.1\Run.csproj.CoreCompileInputs.cache
+D:\CrazyPy\Run\Run\obj\Debug\netcoreapp3.1\Run.dll
+D:\CrazyPy\Run\Run\obj\Debug\netcoreapp3.1\Run.pdb
+D:\CrazyPy\Run\Run\obj\Debug\netcoreapp3.1\Run.genruntimeconfig.cache
