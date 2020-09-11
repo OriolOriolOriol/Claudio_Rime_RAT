@@ -48,7 +48,7 @@ disco=disco+"\\"
 
 
 
-TOKEN = "1200557626:AAGPmgT-PBqUU05pWiwuyIoeQdVpy49MGJ0"
+TOKEN = ""
 updater = Updater(TOKEN, use_context=True)
 j = updater.job_queue
 uu=updater.job_queue

